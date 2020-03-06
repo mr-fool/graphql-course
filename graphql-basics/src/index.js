@@ -9,6 +9,7 @@ const typeDefs = `
         greeting(name: String, position: String): String!
         me: User!
         post: Post!
+        add(a: Float!, b: Float!): Float!
     }
     type User {
         id: ID!
@@ -35,6 +36,9 @@ const resolvers = {
                 return "Hello";
             }
 
+        },
+        add(parent, args, ctx, info) {
+            return args.a + args.b
         },
         me() {
             return {
