@@ -10,6 +10,7 @@ const typeDefs = `
         me: User!
         post: Post!
         add(a: Float!, b: Float!): Float!
+        grades: [Int!]!
     }
     type User {
         id: ID!
@@ -40,6 +41,10 @@ const resolvers = {
         add(parent, args, ctx, info) {
             return args.a + args.b
         },
+        grades(parent,args, ctx, info) {
+            return [99,80,93]
+        },
+
         me() {
             return {
                 id: '1234',
