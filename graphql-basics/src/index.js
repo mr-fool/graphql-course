@@ -7,7 +7,7 @@ const users = [{
     age: 100
 }, {
     id: "2",
-    name: "smith"
+    name: "smith",
     email: "smith@gmail.com",
     age: 0
 }, {
@@ -19,7 +19,7 @@ const users = [{
 //Type definitions
 const typeDefs = `
     type Query {
-        users: [USER!]!
+        users: [User!]!
         me: User!
         post: Post!
     }
@@ -41,7 +41,7 @@ const typeDefs = `
 const resolvers = {
     Query: {
         users(parent, args, ctx, info) {
-
+            return users;
         },
         me() {
             return {
