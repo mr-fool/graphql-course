@@ -17,18 +17,20 @@ const users = [{
 }];
 
 const posts = [{
-    id: "1",
+    id: "10",
     title: "how are you",
     body: "none",
-    published: true
+    published: true,
+    author: "1"
 }, {
-    id: "2",
+    id: "11",
     title: "helloworld",
     body: "yes",
-    published: false
+    published: false,
+    author: "1"
 },
  {
-    id: "3",
+    id: "12",
     title: "yellow",
     body: "",
     published: false
@@ -54,7 +56,7 @@ const typeDefs = `
         body: String!
         published: Boolean!
         author: User!
-        comments: [Comment!]!
+        
     }
 `
 
