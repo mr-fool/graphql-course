@@ -14,14 +14,33 @@ const users = [{
     id: "3",
     name: "mandy",
     email: "mandy@gmail.com"
-}]
+}];
+
+const posts = [{
+    id: "1",
+    title: "how are you",
+    body: "none",
+    published: true
+}, {
+    id: "2",
+    title: "helloworld",
+    body: "yes",
+    published: false
+},
+ {
+    id: "3",
+    title: "yellow",
+    body: "",
+    published: false
+ }]
 
 //Type definitions
 const typeDefs = `
     type Query {
-        users: [User!]!
+        users(query: String): [User!]!
         me: User!
-        post: Post!
+        posts(query: String): [Post!]!
+    
     }
     type User {
         id: ID!
@@ -41,7 +60,22 @@ const typeDefs = `
 const resolvers = {
     Query: {
         users(parent, args, ctx, info) {
-            return users;
+            if (!args.query) {
+                return users;
+            }
+            return users.filter( (user) => {
+                return user.name.toLowerCase().includes(args.query.toLowerCase())
+            })
+        },
+        posts(parent, args, ctx, info) {
+            if (!args.query) {
+                return posts;
+            }
+            return posts.filter( (post) => {
+                const isTitleMath = post.title.toLowerCase().includes(args.query.toLowerCase());
+                const isBodyMatch = post.body.toLowerCase().includes(args.query.toLowerCase());
+                return isTitleMath || isBodyMatch;
+            })
         },
         me() {
             return {
@@ -50,15 +84,6 @@ const resolvers = {
                 email: "h@h.com",
                 age: 28
             }
-        },
-        post() {
-            return {
-                id: "0",
-                title: "test",
-                body: '',
-                published: false
-            }
-
         }
 
     }
