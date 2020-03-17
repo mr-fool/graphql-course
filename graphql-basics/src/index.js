@@ -67,7 +67,7 @@ const resolvers = {
     Query: {
         users(parent, args, ctx, info) {
             if (!args.query) {
-                return users;
+                return users
             }
             return users.filter( (user) => {
                 return user.name.toLowerCase().includes(args.query.toLowerCase())
@@ -75,19 +75,20 @@ const resolvers = {
         },
         posts(parent, args, ctx, info) {
             if (!args.query) {
-                return posts;
+                return posts
             }
             return posts.filter( (post) => {
-                const isTitleMath = post.title.toLowerCase().includes(args.query.toLowerCase());
-                const isBodyMatch = post.body.toLowerCase().includes(args.query.toLowerCase());
-                return isTitleMath || isBodyMatch;
+                const isTitleMath = post.title.toLowerCase().includes(args.query.toLowerCase())
+                const isBodyMatch = post.body.toLowerCase().includes(args.query.toLowerCase())
+                return isTitleMath || isBodyMatch
             })
         },
         me() {
             return {
                 id: '1234',
                 name: "cyka",
-                email: "h@h.com"            }
+                email: "h@h.com"            
+            }
         },
         post() {
             return {
