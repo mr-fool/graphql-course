@@ -45,19 +45,20 @@ const typeDefs = `
         me: User!
         post: Post!
     }
+
     type User {
         id: ID!
         name: String!
         email: String!
         age: Int
     }
+
     type Post {
         id: ID!
         title: String!
         body: String!
         published: Boolean!
         author: User!
-        
     }
 `
 
@@ -92,14 +93,14 @@ const resolvers = {
             return {
                 id: "092",
                 title: "test",
-                body: "",
-                email: "test@gmail.com"
+                body: '',
+                published: false
             }
         },
         Post: {
-            author(parents, args, ctx, info) {
+            author(parent, args, ctx, info) {
                return users.find( (user) => {
-                    return user.id === parents.author
+                    return user.id === parent.author
                })
             }
         }
@@ -107,6 +108,7 @@ const resolvers = {
     }
 
 }
+
 const server = new GraphQLServer({
     typeDefs: typeDefs,
     resolvers: resolvers
