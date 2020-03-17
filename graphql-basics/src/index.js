@@ -77,10 +77,11 @@ const resolvers = {
             if (!args.query) {
                 return posts
             }
-            return posts.filter( (post) => {
-                const isTitleMath = post.title.toLowerCase().includes(args.query.toLowerCase())
+
+            return posts.filter((post) => {
+                const isTitleMatch = post.title.toLowerCase().includes(args.query.toLowerCase())
                 const isBodyMatch = post.body.toLowerCase().includes(args.query.toLowerCase())
-                return isTitleMath || isBodyMatch
+                return isTitleMatch || isBodyMatch
             })
         },
         me() {
@@ -93,7 +94,7 @@ const resolvers = {
         post() {
             return {
                 id: "092",
-                title: "test",
+                title: "why",
                 body: '',
                 published: false
             }
