@@ -86,16 +86,14 @@ const resolvers = {
             return {
                 id: '1234',
                 name: "cyka",
-                email: "h@h.com",
-                age: 28
-            }
+                email: "h@h.com"            }
         },
         post() {
             return {
                 id: "092",
-                title: "Graph 101",
-                body: '',
-                published: false
+                title: "test",
+                body: "",
+                email: "test@gmail.com"
             }
         },
         Post: {
