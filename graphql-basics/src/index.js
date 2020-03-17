@@ -33,7 +33,8 @@ const posts = [{
     id: "12",
     title: "yellow",
     body: "",
-    published: false
+    published: false,
+    author: "2"
  }]
 
 //Type definitions
@@ -87,6 +88,21 @@ const resolvers = {
                 name: "cyka",
                 email: "h@h.com",
                 age: 28
+            }
+        },
+        post() {
+            return {
+                id: "092",
+                title: "Graph 101",
+                body: '',
+                published: false
+            }
+        },
+        Post: {
+            author(parents, args, ctx, info) {
+               return users.find( (user) => {
+                    return user.id === parents.author
+               })
             }
         }
 
