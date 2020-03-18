@@ -1,43 +1,44 @@
-import { GraphQLServer } from "graphql-yoga"
+import { GraphQLServer } from 'graphql-yoga'
 
+// Scalar types - String, Boolean, Int, Float, ID
+
+// Demo user data
 const users = [{
     id: '1',
-    name: "test",
-    email: "test@gmail.com",
-    age: 100
+    name: 'Andrew',
+    email: 'andrew@example.com',
+    age: 27
 }, {
-    id: "2",
-    name: "smith",
-    email: "smith@gmail.com",
-    age: 0
+    id: '2',
+    name: 'Sarah',
+    email: 'sarah@example.com'
 }, {
-    id: "3",
-    name: "mandy",
-    email: "mandy@gmail.com"
-}];
+    id: '3',
+    name: 'Mike',
+    email: 'mike@example.com'
+}]
 
 const posts = [{
-    id: "10",
-    title: "how are you",
-    body: "none",
+    id: '10',
+    title: 'GraphQL 101',
+    body: 'This is how to use GraphQL...',
     published: true,
-    author: "1"
+    author: '1'
 }, {
-    id: "11",
-    title: "helloworld",
-    body: "yes",
+    id: '11',
+    title: 'GraphQL 201',
+    body: 'This is an advanced GraphQL post...',
     published: false,
-    author: "1"
-},
- {
-    id: "12",
-    title: "yellow",
-    body: "",
+    author: '1'
+}, {
+    id: '12',
+    title: 'Programming Music',
+    body: '',
     published: false,
-    author: "2"
- }]
+    author: '2'
+}]
 
-//Type definitions
+// Type definitions (schema)
 const typeDefs = `
     type Query {
         users(query: String): [User!]!
@@ -51,6 +52,7 @@ const typeDefs = `
         name: String!
         email: String!
         age: Int
+        posts: [Post!]!
     }
 
     type Post {
@@ -62,14 +64,15 @@ const typeDefs = `
     }
 `
 
-//Resolvers
+// Resolvers
 const resolvers = {
     Query: {
         users(parent, args, ctx, info) {
             if (!args.query) {
                 return users
             }
-            return users.filter( (user) => {
+
+            return users.filter((user) => {
                 return user.name.toLowerCase().includes(args.query.toLowerCase())
             })
         },
@@ -86,35 +89,41 @@ const resolvers = {
         },
         me() {
             return {
-                id: '1234',
-                name: "cyka",
-                email: "h@h.com"            
+                id: '123098',
+                name: 'Mike',
+                email: 'mike@example.com'
             }
         },
         post() {
             return {
-                id: "092",
-                title: "why",
+                id: '092',
+                title: 'GraphQL 101',
                 body: '',
                 published: false
             }
-        },
-        Post: {
-            author(parent, args, ctx, info) {
-               return users.find( (user) => {
-                    return user.id === parent.author
-               })
-            }
         }
-
+    },
+    Post: {
+        author(parent, args, ctx, info) {
+            return users.find((user) => {
+                return user.id === parent.author
+            })
+        }
+    },
+    User: {
+        posts(parent, args, ctx, info) {
+            return posts.filter((post) => {
+                return post.author === parent.id
+            })
+        }
     }
-
 }
 
 const server = new GraphQLServer({
-    typeDefs: typeDefs,
-    resolvers: resolvers
+    typeDefs,
+    resolvers
 })
+
 server.start(() => {
-    console.log("The server is up")
+    console.log('The server is up!')
 })
