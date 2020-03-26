@@ -41,19 +41,23 @@ const posts = [{
 const comments = [{
     id: "102",
     text: "first comment",
-    author: '1'
+    author: '1',
+    post: "10"
 }, {
     id: "103",
     text: "second comment",
-    author: '2'
+    author: '2',
+    post: "11"
 },{
     id: "104",
     text: "third comment",
-    author: '3'
+    author: '3',
+    post: "12"
 }, {
     id: "105",
     text: "fourth comment",
-    author: '1'
+    author: '1',
+    post: "12"
 }]
 
 // Type definitions (schema)
