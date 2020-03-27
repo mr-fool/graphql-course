@@ -90,7 +90,7 @@ const typeDefs = `
         id: ID!
         text: String!
         author: User!
-        post: String!
+        post: Post!
     }
 `
 
@@ -160,8 +160,12 @@ const resolvers = {
             return users.find((user) => {
                 return user.id === parent.author
             })
+        },
+        post(parent,args, ctx, info) {
+            
         }
     }
+
 }
 
 const server = new GraphQLServer({
