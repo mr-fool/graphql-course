@@ -1,5 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga'
-
+import uuidv4 from "uuid/v4"
 // Scalar types - String, Boolean, Int, Float, ID
 
 // Demo user data
@@ -143,6 +143,12 @@ const resolvers = {
     },
     Mutation: {
         createUser(parent, args, ctx, info) {
+            const emailTaken = users.some( (users) => 
+                user.email === args.email
+            )
+            if (emailTaken) {
+                throw new Error("Email taken ")
+            }
             console.log(args)
         }
     },
